@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSi Browser Test Page</title>
+    <style>
+        /* CSS1 and CSS2 styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 5px;
+            width: 230px; /* Ensuring the content fits within 256px width */
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+        h1 {
+            color: #0055a5;
+            font-size: 16px;
+        }
+        h2 {
+            font-size: 14px;
+        }
+        p, button {
+            font-size: 12px;
+            margin: 5px 0;
+        }
+        .box {
+            width: 70px;
+            height: 70px;
+            margin: 5px;
+            display: inline-block;
+        }
+        .red {
+            background-color: red;
+        }
+        .green {
+            background-color: green;
+        }
+        .blue {
+            background-color: blue;
+        }
+        .hidden {
+            display: none;
+        }
+        .image-container img {
+            width: 48px;
+            height: 48px;
+            margin: 5px;
+        }
+    </style>
+    <script>
+        // JavaScript function to change the text content
+        function changeText() {
+            var jsTest = document.getElementById('js-test');
+            if (jsTest) {
+                jsTest.innerHTML = 'JavaScript is working!';
+            }
+        }
+
+        // JavaScript function to show a hidden element
+        function showElement() {
+            var hiddenElement = document.getElementById('hidden-element');
+            if (hiddenElement) {
+                hiddenElement.style.display = 'block';
+            }
+        }
+    </script>
+</head>
+<body onload="changeText()">
+    <h1>DSi Browser Test Page</h1>
+    <p>This page tests the supported features of the Nintendo DSi browser.</p>
+
+    <!-- Testing basic HTML elements -->
+    <h2>HTML Elements</h2>
+    <p>This is a paragraph. <a href="wordle.html">This is a link</a>. <strong>This is bold text</strong>. <em>This is italic text</em>.</p>
+
+    <!-- Testing JavaScript -->
+    <h2>JavaScript</h2>
+    <button onclick="showElement()">Click me to show hidden text</button>
+    <p id="js-test">This text will change on page load.</p>
+    <p id="hidden-element" class="hidden">This is hidden text that appears when the button is clicked.</p>
+
+    <!-- Testing CSS -->
+    <h2>CSS Styles</h2>
+    <div class="box red"></div>
+    <div class="box green"></div>
+    <div class="box blue"></div>
+
+    <!-- Testing XHTML -->
+    <h2>XHTML Elements</h2>
+    <p>This is a paragraph in <code>XHTML</code> syntax.</p>
+    <div style="border: 1px solid #000; padding: 5px;">
+        <p>Inline styles work too!</p>
+    </div>
+
+    <!-- Testing XHTML Mobile Profile -->
+    <h2>XHTML Mobile Profile</h2>
+    <p>This paragraph tests <abbr title="XHTML Mobile Profile">XHTML-MP</abbr> features.</p>
+
+    <!-- Testing WML -->
+    <h2>WML Elements</h2>
+    <p>WML elements are not directly testable here but should render if supported.</p>
+
+    <!-- Testing Image Formats -->
+    <h2>Image Formats</h2>
+    <div class="image-container">
+        <img src="nazrin.gif" alt="GIF image">
+        <img src="nazrin.png" alt="PNG image">
+        <img src="nazrin.jpg" alt="JPEG image">
+        <img src="nazrin.bmp" alt="BMP image">
+        <img src="nazrin.ico" alt="ICO image">
+    </div>
+</body>
+</html>

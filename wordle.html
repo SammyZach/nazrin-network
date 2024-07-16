@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSi Wordle Clone</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 10px;
+            width: 230px;
+            overflow-x: hidden;
+        }
+        h1 {
+            color: #0055a5;
+            font-size: 14px; /* Scaled down from 18px */
+            text-align: center;
+        }
+        .game-board {
+            display: flex;
+            flex-direction: column;
+            gap: 3px; /* Scaled down from 5px */
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .game-board .row {
+            display: flex;
+            gap: 3px; /* Scaled down from 5px */
+            justify-content: center;
+        }
+        .game-board input {
+            width: 28px; /* Scaled down further */
+            height: 28px; /* Scaled down further */
+            text-align: center;
+            font-size: 14px; /* Scaled down from 18px */
+            text-transform: uppercase;
+            border: 1px solid #ccc;
+        }
+        .keyboard {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .keyboard button {
+            width: 24px; /* Scaled down from 30px */
+            height: 24px; /* Scaled down from 30px */
+            margin: 1px; /* Scaled down from 2px */
+            font-size: 12px; /* Scaled down from 16px */
+            text-transform: uppercase;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        const word = "RUGBY";
+        let currentRow = 0;
+        let currentCol = 0;
+
+        function checkWord() {
+            const rowInputs = document.querySelectorAll(`.row-${currentRow} input`);
+            let guess = '';
+            rowInputs.forEach(input => guess += input.value.toUpperCase());
+            if (guess.length < 5) return;
+
+            for (let i = 0; i < 5; i++) {
+                if (guess[i] === word[i]) {
+                    rowInputs[i].style.backgroundColor = 'green';
+                } else if (word.includes(guess[i])) {
+                    rowInputs[i].style.backgroundColor = 'yellow';
+                } else {
+                    rowInputs[i].style.backgroundColor = 'gray';
+                }
+            }
+            if (guess === word) {
+                document.getElementById('result').innerText = 'You Win!';
+                disableBoard();
+            } else {
+                currentRow++;
+                currentCol = 0;
+                if (currentRow === 6) {
+                    document.getElementById('result').innerText = 'Game Over! The word was RUGBY';
+                    disableBoard();
+                }
+            }
+        }
+
+        function disableBoard() {
+            const inputs = document.querySelectorAll('.game-board input');
+            inputs.forEach(input => input.disabled = true);
+        }
+
+        function handleKeyClick(letter) {
+            if (currentCol < 5) {
+                const input = document.querySelector(`.row-${currentRow} input:nth-child(${currentCol + 1})`);
+                input.value = letter;
+                currentCol++;
+            }
+        }
+
+        function handleBackspace() {
+            if (currentCol > 0) {
+                currentCol--;
+                const input = document.querySelector(`.row-${currentRow} input:nth-child(${currentCol + 1})`);
+                input.value = '';
+            }
+        }
+
+        function handleEnter() {
+            if (currentCol === 5) {
+                checkWord();
+            }
+        }
+
+        function autoScroll() {
+            window.scrollTo(0, document.body.scrollHeight / 2);
+        }
+
+        window.onload = function() {
+            autoScroll();
+        };
+    </script>
+</head>
+<body>
+    <h1>DSi Wordle Clone</h1>
+    <div id="result" style="text-align: center; font-size: 12px; margin-bottom: 10px;"></div>
+    <div class="game-board">
+        <!-- Row 0 -->
+        <div class="row row-0">
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+        </div>
+        <!-- Row 1 -->
+        <div class="row row-1">
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+        </div>
+        <!-- Row 2 -->
+        <div class="row row-2">
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+        </div>
+        <!-- Row 3 -->
+        <div class="row row-3">
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+        </div>
+        <!-- Row 4 -->
+        <div class="row row-4">
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+        </div>
+        <!-- Row 5 -->
+        <div class="row row-5">
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+        </div>
+    </div>
+
+    <div class="keyboard">
+        <button onclick="handleKeyClick('Q')">Q</button>
+        <button onclick="handleKeyClick('W')">W</button>
+        <button onclick="handleKeyClick('E')">E</button>
+        <button onclick="handleKeyClick('R')">R</button>
+        <button onclick="handleKeyClick('T')">T</button>
+        <button onclick="handleKeyClick('Y')">Y</button>
+        <button onclick="handleKeyClick('U')">U</button>
+        <button onclick="handleKeyClick('I')">I</button>
+        <button onclick="handleKeyClick('O')">O</button>
+        <button onclick="handleKeyClick('P')">P</button>
+        <button onclick="handleKeyClick('A')">A</button>
+        <button onclick="handleKeyClick('S')">S</button>
+        <button onclick="handleKeyClick('D')">D</button>
+        <button onclick="handleKeyClick('F')">F</button>
+        <button onclick="handleKeyClick('G')">G</button>
+        <button onclick="handleKeyClick('H')">H</button>
+        <button onclick="handleKeyClick('J')">J</button>
+        <button onclick="handleKeyClick('K')">K</button>
+        <button onclick="handleKeyClick('L')">L</button>
+        <button onclick="handleKeyClick('Z')">Z</button>
+        <button onclick="handleKeyClick('X')">X</button>
+        <button onclick="handleKeyClick('C')">C</button>
+        <button onclick="handleKeyClick('V')">V</button>
+        <button onclick="handleKeyClick('B')">B</button>
+        <button onclick="handleKeyClick('N')">N</button>
+        <button onclick="handleKeyClick('M')">M</button>
+        <button onclick="handleBackspace()">←</button>
+        <button onclick="handleEnter()">↲</button>
+    </div>
+</body>
+</html>
