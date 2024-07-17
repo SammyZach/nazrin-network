@@ -16,26 +16,26 @@
         }
         h1 {
             color: #0055a5;
-            font-size: 18px;
+            font-size: 14px;
             text-align: center;
         }
         .game-board {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 3px;
             justify-content: center;
             margin-bottom: 10px;
         }
         .game-board .row {
             display: flex;
-            gap: 5px;
+            gap: 3px;
             justify-content: center;
         }
         .game-board input {
-            width: 40px;
-            height: 40px;
+            width: 28px;
+            height: 28px;
             text-align: center;
-            font-size: 18px;
+            font-size: 14px;
             text-transform: uppercase;
             border: 1px solid #ccc;
         }
@@ -48,11 +48,8 @@
             width: 30px;
             height: 30px;
             margin: 2px;
-            font-size: 16px;
+            font-size: 14px;
             text-transform: uppercase;
-        }
-        .hidden {
-            display: none;
         }
     </style>
     <script>
@@ -118,7 +115,7 @@
 </head>
 <body>
     <h1>DSi Wordle Clone</h1>
-    <div id="result" style="text-align: center; font-size: 16px; margin-bottom: 10px;"></div>
+    <div id="result" style="text-align: center; font-size: 12px; margin-bottom: 10px;"></div>
     <div class="game-board">
         <!-- Row 0 -->
         <div class="row row-0">
