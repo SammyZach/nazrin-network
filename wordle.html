@@ -16,26 +16,26 @@
         }
         h1 {
             color: #0055a5;
-            font-size: 14px;
+            font-size: 18px;
             text-align: center;
         }
         .game-board {
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 5px;
             justify-content: center;
             margin-bottom: 10px;
         }
         .game-board .row {
             display: flex;
-            gap: 3px;
+            gap: 5px;
             justify-content: center;
         }
         .game-board input {
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
             text-align: center;
-            font-size: 14px;
+            font-size: 18px;
             text-transform: uppercase;
             border: 1px solid #ccc;
         }
@@ -47,8 +47,8 @@
         .keyboard button {
             width: 30px;
             height: 30px;
-            margin: 1px;
-            font-size: 14px;
+            margin: 2px;
+            font-size: 16px;
             text-transform: uppercase;
         }
         .hidden {
@@ -118,55 +118,55 @@
 </head>
 <body>
     <h1>DSi Wordle Clone</h1>
-    <div id="result" style="text-align: center; font-size: 12px; margin-bottom: 10px;"></div>
+    <div id="result" style="text-align: center; font-size: 16px; margin-bottom: 10px;"></div>
     <div class="game-board">
         <!-- Row 0 -->
         <div class="row row-0">
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
         </div>
         <!-- Row 1 -->
         <div class="row row-1">
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
         </div>
         <!-- Row 2 -->
         <div class="row row-2">
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
         </div>
         <!-- Row 3 -->
         <div class="row row-3">
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
         </div>
         <!-- Row 4 -->
         <div class="row row-4">
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
         </div>
         <!-- Row 5 -->
         <div class="row row-5">
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
-            <input type="text" maxlength="1" disabled>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
+            <input type="text" maxlength="1" readonly>
         </div>
     </div>
 
@@ -198,7 +198,7 @@
         <button onclick="handleKeyClick('N')">N</button>
         <button onclick="handleKeyClick('M')">M</button>
         <button onclick="handleBackspace()">←</button>
-        <button onclick="handleEnter()">En</button>
+        <button onclick="handleEnter()">↵</button>
     </div>
 </body>
 </html>
