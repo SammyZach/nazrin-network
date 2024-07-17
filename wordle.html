@@ -16,26 +16,26 @@
         }
         h1 {
             color: #0055a5;
-            font-size: 14px;
+            font-size: 18px;
             text-align: center;
         }
         .game-board {
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 5px;
             justify-content: center;
             margin-bottom: 10px;
         }
         .game-board .row {
             display: flex;
-            gap: 3px;
+            gap: 5px;
             justify-content: center;
         }
         .game-board input {
-            width: 28px;
-            height: 28px;
+            width: 40px;
+            height: 40px;
             text-align: center;
-            font-size: 14px;
+            font-size: 18px;
             text-transform: uppercase;
             border: 1px solid #ccc;
         }
@@ -48,10 +48,11 @@
             width: 30px;
             height: 30px;
             margin: 2px;
-            font-size: 14px;
+            font-size: 16px;
             text-transform: uppercase;
-            border: 1px solid #333; /* Ensures visible border */
-            background-color: #e0e0e0; /* Ensures visible background */
+        }
+        .hidden {
+            display: none;
         }
     </style>
     <script>
@@ -117,7 +118,7 @@
 </head>
 <body>
     <h1>DSi Wordle Clone</h1>
-    <div id="result" style="text-align: center; font-size: 12px; margin-bottom: 10px;"></div>
+    <div id="result" style="text-align: center; font-size: 16px; margin-bottom: 10px;"></div>
     <div class="game-board">
         <!-- Row 0 -->
         <div class="row row-0">
@@ -197,7 +198,7 @@
         <button onclick="handleKeyClick('N')">N</button>
         <button onclick="handleKeyClick('M')">M</button>
         <button onclick="handleBackspace()">←</button>
-        <button onclick="handleEnter()">En</button>
+        <button onclick="handleEnter()">↵</button>
     </div>
 </body>
 </html>
