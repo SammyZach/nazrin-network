@@ -50,25 +50,27 @@
             font-size: 14px;
             text-transform: uppercase;
             border: 1px solid #333;
-            background-color: #fdfdfd;
+            background-color: #ebebeb;
             border-radius: 4px;
         }
     </style>
     <script>
-        const word = "RUGBY";
-        let currentRow = 0;
-        let currentCol = 0;
+        var word = "RUGBY";
+        var currentRow = 0;
+        var currentCol = 0;
 
         function checkWord() {
-            const rowInputs = document.querySelectorAll(`.row-${currentRow} input`);
-            let guess = '';
-            rowInputs.forEach(input => guess += input.value.toUpperCase());
+            var rowInputs = document.getElementsByClassName('row-' + currentRow)[0].getElementsByTagName('input');
+            var guess = '';
+            for (var i = 0; i < rowInputs.length; i++) {
+                guess += rowInputs[i].value.toUpperCase();
+            }
             if (guess.length < 5) return;
 
-            for (let i = 0; i < 5; i++) {
+            for (var i = 0; i < 5; i++) {
                 if (guess[i] === word[i]) {
                     rowInputs[i].style.backgroundColor = 'green';
-                } else if (word.includes(guess[i])) {
+                } else if (word.indexOf(guess[i]) !== -1) {
                     rowInputs[i].style.backgroundColor = 'yellow';
                 } else {
                     rowInputs[i].style.backgroundColor = 'gray';
@@ -88,13 +90,15 @@
         }
 
         function disableBoard() {
-            const inputs = document.querySelectorAll('.game-board input');
-            inputs.forEach(input => input.disabled = true);
+            var inputs = document.getElementsByTagName('input');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].disabled = true;
+            }
         }
 
         function handleKeyClick(letter) {
             if (currentCol < 5) {
-                const input = document.querySelector(`.row-${currentRow} input:nth-child(${currentCol + 1})`);
+                var input = document.getElementsByClassName('row-' + currentRow)[0].getElementsByTagName('input')[currentCol];
                 input.value = letter;
                 currentCol++;
             }
@@ -103,7 +107,7 @@
         function handleBackspace() {
             if (currentCol > 0) {
                 currentCol--;
-                const input = document.querySelector(`.row-${currentRow} input:nth-child(${currentCol + 1})`);
+                var input = document.getElementsByClassName('row-' + currentRow)[0].getElementsByTagName('input')[currentCol];
                 input.value = '';
             }
         }
@@ -119,7 +123,6 @@
     <h1>DSi Wordle Clone</h1>
     <div id="result" style="text-align: center; font-size: 12px; margin-bottom: 10px;"></div>
     <div class="game-board">
-        <!-- Row 0 -->
         <div class="row row-0">
             <input type="text" maxlength="1" readonly>
             <input type="text" maxlength="1" readonly>
@@ -127,7 +130,6 @@
             <input type="text" maxlength="1" readonly>
             <input type="text" maxlength="1" readonly>
         </div>
-        <!-- Row 1 -->
         <div class="row row-1">
             <input type="text" maxlength="1" readonly>
             <input type="text" maxlength="1" readonly>
@@ -135,7 +137,6 @@
             <input type="text" maxlength="1" readonly>
             <input type="text" maxlength="1" readonly>
         </div>
-        <!-- Row 2 -->
         <div class="row row-2">
             <input type="text" maxlength="1" readonly>
             <input type="text" maxlength="1" readonly>
@@ -143,7 +144,6 @@
             <input type="text" maxlength="1" readonly>
             <input type="text" maxlength="1" readonly>
         </div>
-        <!-- Row 3 -->
         <div class="row row-3">
             <input type="text" maxlength="1" readonly>
             <input type="text" maxlength="1" readonly>
@@ -151,7 +151,6 @@
             <input type="text" maxlength="1" readonly>
             <input type="text" maxlength="1" readonly>
         </div>
-        <!-- Row 4 -->
         <div class="row row-4">
             <input type="text" maxlength="1" readonly>
             <input type="text" maxlength="1" readonly>
@@ -159,7 +158,6 @@
             <input type="text" maxlength="1" readonly>
             <input type="text" maxlength="1" readonly>
         </div>
-        <!-- Row 5 -->
         <div class="row row-5">
             <input type="text" maxlength="1" readonly>
             <input type="text" maxlength="1" readonly>
