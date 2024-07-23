@@ -63,20 +63,25 @@
         var currentRow = 0;
         var currentCol = 0;
         var usedLetters = {};
+        var words = [];
 
         function getRandomWord() {
-            var request = new XMLHttpRequest();
-            request.open('GET', 'https://gist.githubusercontent.com/scholtes/94f3c0303ba6a7768b47583aff36654d/raw/d9cddf5e16140df9e14f19c2de76a0ef36fd2748/wordle-La.txt', true);
-            request.onreadystatechange = function() {
-                if (request.readyState === 4 && request.status === 200) {
-                    var words = request.responseText.split('\n');
-                    do {
-                        word = words[Math.floor(Math.random() * words.length)].toUpperCase();
-                    } while (word === previousWord);
-                    previousWord = word;
+            do {
+                word = words[Math.floor(Math.random() * words.length)].toUpperCase();
+            } while (word === previousWord);
+            previousWord = word;
+        }
+
+        function loadWords() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'wordle-list.txt', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    words = xhr.responseText.split('\n');
+                    getRandomWord();
                 }
             };
-            request.send();
+            xhr.send();
         }
 
         function checkWord() {
@@ -153,7 +158,7 @@
         }
 
         window.onload = function() {
-            getRandomWord();
+            loadWords();
         };
     </script>
 </head>
