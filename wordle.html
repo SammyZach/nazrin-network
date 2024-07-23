@@ -144,8 +144,8 @@
                 usedLetters[letter] = true;
                 var buttons = document.getElementsByTagName('button');
                 for (var i = 0; i < buttons.length; i++) {
-                    if (buttons[i].innerText === letter) {
-                        buttons[i].classList.add('greyed');
+                    if (buttons[i].innerHTML === letter) {
+                        buttons[i].className += ' greyed';
                         break;
                     }
                 }
