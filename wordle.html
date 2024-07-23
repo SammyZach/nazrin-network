@@ -11,31 +11,30 @@
             color: #333;
             margin: 0;
             padding: 10px;
-            width: 210px;
+            width: 230px;
             overflow-x: hidden;
         }
         h1 {
             color: #0055a5;
-            font-size: 18px;
+            font-size: 14px;
             text-align: center;
         }
         .game-board {
             display: flex;
             flex-direction: column;
-            gap: 1px;
             justify-content: center;
             margin-bottom: 10px;
         }
-        .game-board .row {
+        .row {
             display: flex;
-            gap: 1px;
             justify-content: center;
+            gap: 3px;
         }
-        .game-board input {
+        .row input {
             width: 20px;
             height: 20px;
             text-align: center;
-            font-size: 18px;
+            font-size: 14px;
             text-transform: uppercase;
             border: 1px solid #ccc;
         }
@@ -45,14 +44,14 @@
             justify-content: center;
         }
         .keyboard button {
-            width: 30px;
-            height: 30px;
-            margin: 2px;
-            font-size: 16px;
+            width: 28px;
+            height: 28px;
+            margin: 1px;
+            font-size: 14px;
             text-transform: uppercase;
-        }
-        .hidden {
-            display: none;
+            border: 1px solid #333;
+            background-color: #fdfdfd;
+            border-radius: 4px;
         }
     </style>
     <script>
@@ -118,7 +117,7 @@
 </head>
 <body>
     <h1>DSi Wordle Clone</h1>
-    <div id="result" style="text-align: center; font-size: 16px; margin-bottom: 10px;"></div>
+    <div id="result" style="text-align: center; font-size: 12px; margin-bottom: 10px;"></div>
     <div class="game-board">
         <!-- Row 0 -->
         <div class="row row-0">
@@ -198,7 +197,7 @@
         <button onclick="handleKeyClick('N')">N</button>
         <button onclick="handleKeyClick('M')">M</button>
         <button onclick="handleBackspace()">←</button>
-        <button onclick="handleEnter()">⏎</button>
+        <button onclick="handleEnter()">↑</button>
     </div>
 </body>
 </html>
