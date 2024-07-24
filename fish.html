@@ -43,7 +43,6 @@
             width: 8px;
             height: 8px;
             background-color: black;
-            border-radius: 50%;
         }
         .fish {
             position: absolute;
@@ -88,6 +87,7 @@
         var message = document.getElementById('message');
         var diamondCollected = false;
         var gameRunning = true;
+        var fishSpeed = [getRandomSpeed(), getRandomSpeed(), getRandomSpeed()];
 
         function moveHook(e) {
             if (!gameRunning) return;
@@ -164,45 +164,38 @@
             positionElement(fish1, '20px', getRandomPosition());
             positionElement(fish2, '40px', getRandomPosition());
             positionElement(fish3, '60px', getRandomPosition());
-            moveFishRightToLeft(fish1, getRandomSpeed());
-            moveFishLeftToRight(fish2, getRandomSpeed());
-            moveFishRightToLeft(fish3, getRandomSpeed());
+            var left1 = parseInt(fish1.style.left, 10);
+            var left2 = parseInt(fish2.style.left, 10);
+            var left3 = parseInt(fish3.style.left, 10);
+
+            setInterval(function() {
+                if (!gameRunning) return;
+
+                left1 -= fishSpeed[0];
+                left2 += fishSpeed[1];
+                left3 -= fishSpeed[2];
+
+                if (left1 <= 0) {
+                    left1 = 100;
+                    fishSpeed[0] = getRandomSpeed();
+                }
+                if (left2 >= 100) {
+                    left2 = 0;
+                    fishSpeed[1] = getRandomSpeed();
+                }
+                if (left3 <= 0) {
+                    left3 = 100;
+                    fishSpeed[2] = getRandomSpeed();
+                }
+
+                fish1.style.left = left1 + 'px';
+                fish2.style.left = left2 + 'px';
+                fish3.style.left = left3 + 'px';
+            }, 100); // Adjusted interval time for better performance
         }
 
         function getRandomSpeed() {
-            return Math.floor(Math.random() * 20) + 10;
-        }
-
-        function moveFishRightToLeft(fish, speed) {
-            var left = parseInt(fish.style.left, 10);
-            var interval = setInterval(function() {
-                if (!gameRunning) {
-                    clearInterval(interval);
-                    return;
-                }
-                if (left <= 0) {
-                    left = 100;
-                    speed = getRandomSpeed();
-                }
-                left--;
-                fish.style.left = left + 'px';
-            }, speed);
-        }
-
-        function moveFishLeftToRight(fish, speed) {
-            var left = parseInt(fish.style.left, 10);
-            var interval = setInterval(function() {
-                if (!gameRunning) {
-                    clearInterval(interval);
-                    return;
-                }
-                if (left >= 100) {
-                    left = 0;
-                    speed = getRandomSpeed();
-                }
-                left++;
-                fish.style.left = left + 'px';
-            }, speed);
+            return Math.floor(Math.random() * 2) + 1; // Reduced speed for better performance
         }
 
         if (gameContainer.addEventListener) {
