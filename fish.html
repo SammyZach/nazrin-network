@@ -92,7 +92,7 @@
 
         function moveHook(e) {
             var now = new Date().getTime();
-            if (now - lastMoveTime < 50) return; // Throttle to every 50ms
+            if (now - lastMoveTime < 100) return; // Throttle to every 100ms
             lastMoveTime = now;
 
             if (!gameRunning) return;
