@@ -25,7 +25,7 @@
         }
         .canvas-container {
             border: 1px solid #333;
-            width: 100x;
+            width: 100px;
             height: 100px;
             position: relative;
         }
@@ -61,17 +61,19 @@
         var drawing = false;
         var currentColor = 'black';
 
-        canvas.addEventListener('mousedown', function(e) {
+        canvas.onmousedown = function(e) {
             drawing = true;
             draw(e);
-        });
+        };
 
-        canvas.addEventListener('mouseup', function() {
+        canvas.onmouseup = function() {
             drawing = false;
             ctx.beginPath();
-        });
+        };
 
-        canvas.addEventListener('mousemove', draw);
+        canvas.onmousemove = function(e) {
+            draw(e);
+        };
 
         function draw(e) {
             if (!drawing) return;
