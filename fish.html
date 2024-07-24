@@ -88,8 +88,13 @@
         var diamondCollected = false;
         var gameRunning = true;
         var fishSpeed = [getRandomSpeed(), getRandomSpeed(), getRandomSpeed()];
+        var lastMoveTime = 0;
 
         function moveHook(e) {
+            var now = new Date().getTime();
+            if (now - lastMoveTime < 50) return; // Throttle to every 50ms
+            lastMoveTime = now;
+
             if (!gameRunning) return;
             var y = e.clientY - gameContainer.offsetTop;
             if (y < 0) y = 0;
