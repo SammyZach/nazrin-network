@@ -96,7 +96,7 @@
             lastMoveTime = now;
 
             if (!gameRunning) return;
-            var y = e.clientY - gameContainer.offsetTop;
+            var y = Math.round((e.clientY - gameContainer.offsetTop) / 5) * 5; // Reduce precision
             if (y < 0) y = 0;
             if (y > gameContainer.clientHeight - hookBall.offsetHeight) y = gameContainer.clientHeight - hookBall.offsetHeight;
             hook.style.height = y + 'px';
@@ -120,6 +120,10 @@
                 }
             }
 
+            checkCollision();
+        }
+
+        function checkCollision() {
             if (isCollision(hook, fish1) || isCollision(hook, fish2) || isCollision(hook, fish3) ||
                 isCollision(hookBall, fish1) || isCollision(hookBall, fish2) || isCollision(hookBall, fish3)) {
                 gameRunning = false;
@@ -196,6 +200,8 @@
                 fish1.style.left = left1 + 'px';
                 fish2.style.left = left2 + 'px';
                 fish3.style.left = left3 + 'px';
+
+                checkCollision();
             }, 100); // Adjusted interval time for better performance
         }
 
