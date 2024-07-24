@@ -32,14 +32,14 @@
         .hook {
             position: absolute;
             left: 50%;
-            margin-left: -1px; /* half the width to center */
+            margin-left: -1px;
             width: 2px;
             background-color: black;
         }
         .hook-ball {
             position: absolute;
             left: 50%;
-            margin-left: -4px; /* half the width to center */
+            margin-left: -4px;
             width: 8px;
             height: 8px;
             background-color: black;
@@ -50,7 +50,6 @@
             width: 10px;
             height: 10px;
             background-color: red;
-            border-radius: 50%;
         }
         .diamond {
             position: absolute;
@@ -92,10 +91,9 @@
 
         function moveHook(e) {
             if (!gameRunning) return;
-            var rect = gameContainer.getBoundingClientRect();
-            var y = e.clientY - rect.top;
+            var y = e.clientY - gameContainer.offsetTop;
             if (y < 0) y = 0;
-            if (y > rect.height - hookBall.offsetHeight) y = rect.height - hookBall.offsetHeight;
+            if (y > gameContainer.clientHeight - hookBall.offsetHeight) y = gameContainer.clientHeight - hookBall.offsetHeight;
             hook.style.height = y + 'px';
             hookBall.style.top = y + 'px';
 
@@ -107,10 +105,10 @@
             if (diamondCollected) {
                 diamond.style.top = hookBall.style.top;
                 diamond.style.left = '50%';
-                diamond.style.marginLeft = '-5px'; // half the width to center
+                diamond.style.marginLeft = '-5px';
                 if (y === 0) {
                     gameRunning = false;
-                    message.innerText = 'You Win!';
+                    message.innerHTML = 'You Win!';
                     setTimeout(function() {
                         location.reload();
                     }, 1000);
@@ -120,7 +118,7 @@
             if (isCollision(hook, fish1) || isCollision(hook, fish2) || isCollision(hook, fish3) ||
                 isCollision(hookBall, fish1) || isCollision(hookBall, fish2) || isCollision(hookBall, fish3)) {
                 gameRunning = false;
-                message.innerText = 'Game Over!';
+                message.innerHTML = 'Game Over!';
                 setTimeout(function() {
                     location.reload();
                 }, 1000);
@@ -149,8 +147,8 @@
         }
 
         function positionElement(element, top, left) {
-            element.style.top = top + 'px';
-            element.style.left = left + 'px';
+            element.style.top = top;
+            element.style.left = left;
         }
 
         function initGame() {
@@ -159,7 +157,7 @@
         }
 
         function getRandomPosition() {
-            return Math.random() * 90 + 'px';
+            return Math.floor(Math.random() * 90) + 'px';
         }
 
         function moveFish() {
@@ -172,7 +170,7 @@
         }
 
         function getRandomSpeed() {
-            return Math.random() * 20 + 10;
+            return Math.floor(Math.random() * 20) + 10;
         }
 
         function moveFishRightToLeft(fish, speed) {
@@ -207,11 +205,17 @@
             }, speed);
         }
 
-        gameContainer.addEventListener('mousemove', moveHook);
+        if (gameContainer.addEventListener) {
+            gameContainer.addEventListener('mousemove', moveHook, false);
+        } else if (gameContainer.attachEvent) {
+            gameContainer.attachEvent('onmousemove', moveHook);
+        }
 
-        window.onload = function() {
-            initGame();
-        };
+        if (window.addEventListener) {
+            window.addEventListener('load', initGame, false);
+        } else if (window.attachEvent) {
+            window.attachEvent('onload', initGame);
+        }
     </script>
 </body>
 </html>
