@@ -32,14 +32,14 @@
         .hook {
             position: absolute;
             left: 50%;
-            transform: translateX(-50%);
+            margin-left: -1px; /* half the width to center */
             width: 2px;
             background-color: black;
         }
         .hook-ball {
             position: absolute;
             left: 50%;
-            transform: translateX(-50%);
+            margin-left: -4px; /* half the width to center */
             width: 8px;
             height: 8px;
             background-color: black;
@@ -57,7 +57,6 @@
             width: 10px;
             height: 10px;
             background-color: blue;
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
         }
         .message {
             margin-top: 5px;
@@ -108,7 +107,7 @@
             if (diamondCollected) {
                 diamond.style.top = hookBall.style.top;
                 diamond.style.left = '50%';
-                diamond.style.transform = 'translateX(-50%)';
+                diamond.style.marginLeft = '-5px'; // half the width to center
                 if (y === 0) {
                     gameRunning = false;
                     message.innerText = 'You Win!';
@@ -155,18 +154,18 @@
         }
 
         function initGame() {
-            positionElement(diamond, 80, 45);
+            positionElement(diamond, '80px', '45px');
             moveFish();
         }
 
         function getRandomPosition() {
-            return Math.random() * 90;
+            return Math.random() * 90 + 'px';
         }
 
         function moveFish() {
-            positionElement(fish1, 20, getRandomPosition());
-            positionElement(fish2, 40, getRandomPosition());
-            positionElement(fish3, 60, getRandomPosition());
+            positionElement(fish1, '20px', getRandomPosition());
+            positionElement(fish2, '40px', getRandomPosition());
+            positionElement(fish3, '60px', getRandomPosition());
             moveFishRightToLeft(fish1, getRandomSpeed());
             moveFishLeftToRight(fish2, getRandomSpeed());
             moveFishRightToLeft(fish3, getRandomSpeed());
