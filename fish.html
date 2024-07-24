@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSi Fishing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 5px;
+            width: 150px;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #0055a5;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 1px;
+        }
+        .game-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border: 1px solid #333;
+        }
+        .hook {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            background-color: black;
+        }
+        .hook-ball {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background-color: black;
+            border-radius: 50%;
+        }
+        .fish {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+        }
+        .diamond {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: blue;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        .message {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #0055a5;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>DSi Fishing Game</h1>
+    <div class="game-container" id="gameContainer">
+        <div class="hook" id="hook"></div>
+        <div class="hook-ball" id="hookBall"></div>
+        <div class="diamond" id="diamond"></div>
+        <div class="fish" id="fish1"></div>
+        <div class="fish" id="fish2"></div>
+        <div class="fish" id="fish3"></div>
+    </div>
+    <div class="message" id="message"></div>
+
+    <script>
+        var gameContainer = document.getElementById('gameContainer');
+        var hook = document.getElementById('hook');
+        var hookBall = document.getElementById('hookBall');
+        var diamond = document.getElementById('diamond');
+        var fish1 = document.getElementById('fish1');
+        var fish2 = document.getElementById('fish2');
+        var fish3 = document.getElementById('fish3');
+        var message = document.getElementById('message');
+        var diamondCollected = false;
+        var gameRunning = true;
+
+        function moveHook(e) {
+            if (!gameRunning) return;
+            var rect = gameContainer.getBoundingClientRect();
+            var y = e.clientY - rect.top;
+            if (y < 0) y = 0;
+            if (y > rect.height - hookBall.offsetHeight) y = rect.height - hookBall.offsetHeight;
+            hook.style.height = y + 'px';
+            hookBall.style.top = y + 'px';
+
+            if (!diamondCollected && isCollision(hookBall, diamond)) {
+                diamondCollected = true;
+                diamond.style.backgroundColor = 'green';
+            }
+
+            if (diamondCollected) {
+                diamond.style.top = hookBall.style.top;
+                diamond.style.left = '50%';
+                diamond.style.transform = 'translateX(-50%)';
+                if (y === 0) {
+                    gameRunning = false;
+                    message.innerText = 'You Win!';
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                }
+            }
+
+            if (isCollision(hook, fish1) || isCollision(hook, fish2) || isCollision(hook, fish3) ||
+                isCollision(hookBall, fish1) || isCollision(hookBall, fish2) || isCollision(hookBall, fish3)) {
+                gameRunning = false;
+                message.innerText = 'Game Over!';
+                setTimeout(function() {
+                    location.reload();
+                }, 1000);
+            }
+        }
+
+        function isCollision(a, b) {
+            var aRect = a.getBoundingClientRect();
+            var bRect = b.getBoundingClientRect();
+            return !(
+                aRect.top > bRect.bottom ||
+                aRect.bottom < bRect.top ||
+                aRect.left > bRect.right ||
+                aRect.right < bRect.left
+            );
+        }
+
+        function resetGame() {
+            hook.style.height = '0px';
+            hookBall.style.top = '0px';
+            diamondCollected = false;
+            diamond.style.backgroundColor = 'blue';
+            diamond.style.top = '80px';
+            diamond.style.left = '45px';
+            moveFish();
+        }
+
+        function positionElement(element, top, left) {
+            element.style.top = top + 'px';
+            element.style.left = left + 'px';
+        }
+
+        function initGame() {
+            positionElement(diamond, 80, 45);
+            moveFish();
+        }
+
+        function getRandomPosition() {
+            return Math.random() * 90;
+        }
+
+        function moveFish() {
+            positionElement(fish1, 20, getRandomPosition());
+            positionElement(fish2, 40, getRandomPosition());
+            positionElement(fish3, 60, getRandomPosition());
+            moveFishRightToLeft(fish1, getRandomSpeed());
+            moveFishLeftToRight(fish2, getRandomSpeed());
+            moveFishRightToLeft(fish3, getRandomSpeed());
+        }
+
+        function getRandomSpeed() {
+            return Math.random() * 20 + 10;
+        }
+
+        function moveFishRightToLeft(fish, speed) {
+            var left = parseInt(fish.style.left, 10);
+            var interval = setInterval(function() {
+                if (!gameRunning) {
+                    clearInterval(interval);
+                    return;
+                }
+                if (left <= 0) {
+                    left = 100;
+                    speed = getRandomSpeed();
+                }
+                left--;
+                fish.style.left = left + 'px';
+            }, speed);
+        }
+
+        function moveFishLeftToRight(fish, speed) {
+            var left = parseInt(fish.style.left, 10);
+            var interval = setInterval(function() {
+                if (!gameRunning) {
+                    clearInterval(interval);
+                    return;
+                }
+                if (left >= 100) {
+                    left = 0;
+                    speed = getRandomSpeed();
+                }
+                left++;
+                fish.style.left = left + 'px';
+            }, speed);
+        }
+
+        gameContainer.addEventListener('mousemove', moveHook);
+
+        window.onload = function() {
+            initGame();
+        };
+    </script>
+</body>
+</html>
